@@ -1,4 +1,4 @@
-                              # Deploy WebServer in AWS Private Subnet using Terraform  
+# Deploy WebServer in AWS Private Subnet using Terraform  
 
 # Steps to Create AWS Infructure using terraform 
  1. Create VPC
