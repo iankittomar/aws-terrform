@@ -7,12 +7,9 @@ resource "aws_instance" "bastion" {
   subnet_id                   = "${aws_subnet.public.id}"
   associate_public_ip_address = true
   source_dest_check           = false
-  #user_data = "${file("master.sh")}"
   depends_on = [
     "aws_security_group.bastion"
   ]
-  #user_data = "${file("master.sh")}"
-
   tags = {
     Name = "bastion"
   }
@@ -22,7 +19,6 @@ resource "aws_eip" "bastion_eip" {
   instance = "${aws_instance.bastion.id}"
   vpc      = true
 }
-
 
 ## Creating Launch Configuration
 resource "aws_launch_configuration" "webserver" {
@@ -36,11 +32,9 @@ resource "aws_launch_configuration" "webserver" {
     create_before_destroy = true
   }
 }
-
 /*
 Auto Scalling group for WebServer
 */
-
 resource "aws_autoscaling_group" "webserver-asg" {
   launch_configuration = "${aws_launch_configuration.webserver.id}"
 
@@ -62,11 +56,9 @@ resource "aws_autoscaling_group" "webserver-asg" {
     create_before_destroy = true
   }
 }
-
 /*
 Load Balancer for WebServer
 */
-
 resource "aws_elb" "web_elb" {
   name = "web-elb"
   security_groups = [
@@ -88,6 +80,3 @@ resource "aws_elb" "web_elb" {
     instance_protocol = "http"
   }
 }
-
-
-
