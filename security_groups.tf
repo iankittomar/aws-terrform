@@ -118,3 +118,35 @@ resource "aws_security_group" "elb_http" {
     Name = "Allow all inbound traffic"
   }
 }
+/* 
+EFS security_group
+*/
+
+resource "aws_security_group" "efs" {
+  name        = "efs-test"
+  description = "Allow NFS traffic."
+  vpc_id      = "${aws_vpc.default.id}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  ingress {
+    from_port   = "2049"
+    to_port     = "2049"
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name        = "eft-test"
+    Terraform   = "true"
+  }
+}
