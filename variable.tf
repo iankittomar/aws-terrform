@@ -38,3 +38,14 @@ variable "private_subnet_cidr" {
   description = "CIDR for the Private Subnet"
   default     = "10.0.1.0/24"
 }
+
+variable "performance_mode" {
+  description = "(Optional) The performance mode of your file system."
+  type        = "string"
+  default     = "generalPurpose"
+}
+  
+variable "subnets" {
+  description = "(Required) A comma separated list of subnet ids where mount targets will be."
+  type        = "list"
+}
