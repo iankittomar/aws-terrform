@@ -35,3 +35,14 @@ output "nat_ids" {
   description = "List of allocation ID of Elastic IPs created for AWS NAT Gateway"
   value       = aws_eip.nat.*.id
 }
+output "mount_target_dns_names" {
+  value       = [coalescelist(aws_efs_mount_target.efs.*.dns_name, [""])]
+  description = "List of EFS mount target DNS names"
+}
+output "mount_target_ids" {
+  value = "${join(",", aws_efs_mount_target.efs.*.id)}"
+}
+
+output "mount_target_interface_ids" {
+  value = "${join(",", aws_efs_mount_target.efs.*.network_interface_id)}"
+}
